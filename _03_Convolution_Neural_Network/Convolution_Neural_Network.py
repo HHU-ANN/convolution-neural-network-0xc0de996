@@ -15,7 +15,18 @@ from torch.utils.data import DataLoader
     
 
 class NeuralNetwork(nn.Module):
-    pass
+    def __init__(self, input_size=3*32*32, hidden_size=128, output_size=10):
+        super(NeuralNetwork, self).__init__() # 调用父类构造函数，完成初始化
+        self.fc1 = nn.Linear(input_size, hidden_size)  # nn.Linear是一个线性层，他将维度从input_size隐射到hidden_size
+        self.relu = nn.ReLU() # 激活函数
+        self.fc2 = nn.Linear(hidden_size, output_size) # 将维度从hidden_size映射到output_size
+
+    def forward(self, x):
+        # 定义计算的流程
+        x = self.fc1(x)
+        x = self.relu(x)
+        x = self.fc2(x)
+        return x
 
 def read_data():
     # 这里可自行修改数据预处理，batch大小也可自行调整
